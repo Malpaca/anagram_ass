@@ -1,8 +1,9 @@
 #ifndef DICTIONARY_H
 #define DICTIONARY_H
 
+#include <stdio.h>
 #include <stdlib.h>
-#define DEFAULT_HASH_SIZE 500
+#define DEFAULT_HASH_SIZE 1000
 
 typedef struct v_node {
 	char* value;
