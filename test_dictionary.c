@@ -12,16 +12,18 @@ void print_list(VNode *head){
 	printf("\n");
 }
 
-void print_anagram(VNode *head){
-	if (!head) return;
+int print_anagram(VNode *head, int count){
+	if (!head) return count;
 	VNode *cur = head->next;
 	if (cur){
 		printf("Anagram for '%s':\n",head->value);
+		count ++;
 		while(cur){
 			printf("%s\n", cur->value);
 			cur = cur->next;
 		}
 	}
+	return count;
 }
 
 int cmpfunc( const void *a, const void *b) {
@@ -68,27 +70,29 @@ int main (int argc, char ** argv) {
 		set(dictionary, DEFAULT_HASH_SIZE, key, buf);
 		free(key);
 	}
+	int count = 0;
 	for (int i = 0; i < DEFAULT_HASH_SIZE; i++){
 		if (dictionary [i]!=NULL){
 			// printf("Anagrams for %s\n",(dictionary[i])->key);
 			// print_list((dictionary[i])->values);
 			for (DNode *np = dictionary[i]; np !=NULL; np = np->next){
-				print_anagram(np->values);
+				count = print_anagram(np->values, count);
 			}
 		}
 	}
+	printf("Total number of anagram is %d\n", count);
 
 	//Personal test
-	DNode *result;
-	result = get (dictionary, DEFAULT_HASH_SIZE, "how");
-	if (result != NULL) {
-		printf("Anagrams for 'how':\n");
-		print_list (result->values);
-	}
-	else
-		printf ("'how' not found\n");
-
-	free_dictionary(dictionary, DEFAULT_HASH_SIZE);
+	// DNode *result;
+	// result = get (dictionary, DEFAULT_HASH_SIZE, "how");
+	// if (result != NULL) {
+	// 	printf("Anagrams for 'how':\n");
+	// 	print_list (result->values);
+	// }
+	// else
+	// 	printf ("'how' not found\n");
+	//
+	// free_dictionary(dictionary, DEFAULT_HASH_SIZE);
 
 
 	return 0;
